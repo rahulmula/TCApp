@@ -1,0 +1,145 @@
+<doctype html>
+<html>
+<head>
+  <style>
+  body {margin:0;}
+
+  .navbar {
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  .navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .navbar a:hover {
+    background: #ddd;
+    color: black;
+  }
+
+  .main {
+    padding: 16px;
+    margin-top: 30px;
+    height: 1500px; /* Used in this example to enable scrolling */
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <a><font size="5">TCApp</font></a>
+      <a href="{{ url_for('add') }}">Add</a>
+      <a href="{{ url_for('view') }}">View</a>
+    </div>
+    </header>
+</body>
+</html>
+<title>Add User - Python Flask MySQL CRUD</title>
+<h2>Add TestCase</h2>
+<form method="post" action="{{ url_for('add') }}">
+  <fieldset>
+    <legend>TestCase Details:</legend>
+    <dl>
+		<p>
+			<input name="testcategory" value="" type="text" placeholder="TestCategory" autocomplete="off" required>
+		</p>
+		<p>
+			<input name="testname" value="" type="text" placeholder="TestName" autocomplete="off" required>
+		</p>
+    <p>
+			<input name="testsuite" value="" type="text" placeholder="TestSuite" autocomplete="off" required>
+		</p>
+    <p>
+			<input name="testscript" value="" type="text" placeholder="TestScript" autocomplete="off" required>
+		</p>
+    <p>
+			<input name="description" value="" type="text" placeholder="Description" autocomplete="off" required>
+		</p>
+    <p>
+			<input name="no.of.tests" value="" type="text" placeholder="No.of.Tests" autocomplete="off" required>
+		</p>
+    <p>
+      OS Applicability:
+      <form action="" method="post">
+       <input type="checkbox" name="check" value="CentOS" /> CentOS
+       <input type="checkbox" name="check" value="Ubuntu16.04" /> Ubuntu16.04
+       <input type="checkbox" name="check" value="Ubuntu18.04" /> Ubuntu18.04
+      </form>
+		</p>
+    <p>
+      Applicable Category:
+      <form action="" method="post">
+       <input type="checkbox" name="check1" value="Sanity" /> Sanity
+       <input type="checkbox" name="check1" value="Regression" /> Regression
+       <input type="checkbox" name="check1" value="Performance" /> Performance
+       <input type="checkbox" name="check1" value="Release" /> Release
+       <input type="checkbox" name="check1" value="FullCycle" /> FullCycle
+      </form>
+		</p>
+    <p>
+      <form action="" method="post">
+       Automation Status?
+        <select>
+          <option>Fully Automated</option>
+          <option>Semi Automated</option>
+          <option>Not Automated</option>
+          <option>NA</option>
+          <option>TBD</option>
+       </select>
+      </form>
+		</p>
+    <p>
+      <form action="" method="post">
+       Automation Type?
+        <select>
+          <option>SkyNet E2E</option>
+          <option>SkyNet LogCheck</option>
+          <option>Script E2E</option>
+          <option>Script LogCheck</option>
+          <option>TBD</option>
+          <option>NA</option>
+       </select>
+      </form>
+		</p>
+    <p>
+      <form action="" method="post">
+       Can be mGPU??
+        <select>
+          <option>Yes</option>
+          <option>No</option>
+          <option>NA</option>
+          <option>TBD</option>
+       </select>
+      </form>
+		</p>
+    <p>
+      <form action="" method="post">
+       Is mGPU??
+        <select>
+          <option>Yes</option>
+          <option>No</option>
+          <option>NA</option>
+          <option>TBD</option>
+       </select>
+      </form>
+		</p>
+    <p>
+			Execution Time in mins( 1xVG20): <input name="Time" value="" type="text" placeholder="Minutes" autocomplete="off" required>
+		</p>
+    </dl>
+    <p>
+		<input type="submit" value="Submit" formaction="{{ url_for('add') }}">
+    <label>{{val}}</label>
+	  </p>
+    </fieldset>
+</form>
