@@ -170,7 +170,7 @@
   </div> -->
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
-      <tbody>
+      <!-- <tbody> -->
         <tr>
           <th>TestCategory</th>
           <th>TestName</th>
@@ -188,23 +188,23 @@
           <th>AutomationStatus</th>
           <th>AutomationType</th>
         </tr>
-        </tbody>
-        <tbody>
+        <!-- </tbody> -->
+        <!-- <tbody>
         {% for row in data %}
             <tr>
                 <td><%= row.category %></td>
                 <td><%= row.testname %></td>
             </tr>
         {% endfor %}
-        </tbody>
+        </tbody> -->
 
-        <!-- {% for row in data %}
+        {% for row in data %}
         <tr>
           {% for d in row %}
    	      <td>{{ d }}</td>
           {% endfor %}
         </tr>
-        {% endfor %} -->
+        {% endfor %}
 
         <!-- {% for row in data %}
         <tr>
