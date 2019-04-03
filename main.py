@@ -1,5 +1,5 @@
 import pymongo
-from mysql.connector import connection
+import mysql.connector
 import MySQLdb
 from pymongo import MongoClient
 from flask import Flask, render_template, request, url_for
@@ -19,14 +19,19 @@ database = 'tcdata'
 @app.route("/view", methods=['GET', 'POST'])
 def view():
     try:
-        initDb()
-        cur = myConnection.cursor()
+        # initDb()
+        db = mysql.connector.connect(host='10.130.163.64', user='admin', passwd='Password@123', db='tcdata', port='3309')
+        cur = db.cursor()
+
         # conn = MongoClient('mongodb://admin:admin123@TCTINFRA:27017')
         print("Connected successfully!!!")
     except:
         print("Could not connect to MongoDB")
-    db = conn.tcdata
-    collection = db.tctestdata.find()
+        
+    cur.execute("select * from tctestdata")
+    data=cur.fetchall()
+    # db = conn.tcdata
+    # collection = db.tctestdata.find()
     # for x in collection.find():
     #   print(x)
     return render_template("view.html",data=collection)
@@ -43,8 +48,8 @@ def add():
 
         try:
             # initDb()
-            db = MySQLdb.connect(host='localhost', user='admin', passwd='Password@123', db='tcdata', port='3309')
-            # myConnection = mysql.connector.connect(host='10.130.163.64', user='admin', passwd='Password@123', db='tcdata', port='3309')
+            # db = MySQLdb.connect(host='localhost', user='admin', passwd='Password@123', db='tcdata', port='3309')
+            db = mysql.connector.connect(host='10.130.163.64', user='admin', passwd='Password@123', db='tcdata', port='3309')
             # cur = myConnection.cursor()
             # conn = MongoClient('mongodb://admin:admin123@TCTINFRA:27017')
             print("Connected successfully!!!")
@@ -54,8 +59,8 @@ def add():
         sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
         VALUES('2', tstcategory, tstname, tstsuite, tstscript, tstnooftests, 'fullyautomated', 'e2e', 'yes', 'no', '20', '2018-01-11');"""
         # db = MySQLdb.connect(host='10.130.163.64', user='admin', passwd='Password@123', db='tcdata', port=3309)
-        db=connection.MySQLConnection(host='localhost', user='admin', passwd='Password@123', db='tcdata', port=3309)
-        # myConnection = mysql.connector.connect(host='10.130.163.64', user='admin', passwd='Password@123', db='tcdata', port='3309')
+        # db=connection.MySQLConnection(host='localhost', user='admin', passwd='Password@123', db='tcdata', port=3309)
+        db = mysql.connector.connect(host='10.130.163.64', user='admin', passwd='Password@123', db='tcdata', port='3309')
         #cursor = myConnection.cursor()
         cursor = db.cursor()
         result  = cursor.execute(sql_insert_query)
