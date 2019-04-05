@@ -37,7 +37,7 @@ def view():
     #   print(x)
     return render_template("view.html",data=collection)
 
-@app.route('/add', methods = ['POST', 'GET'])
+@app.route('/exceladd', methods = ['POST', 'GET'])
 def add():
     if request.method == 'POST':
         tstcategory=request.form['testcategory']
@@ -97,6 +97,7 @@ def add():
     else:
         return render_template('add.html')
 
+@app.route('/add', methods = ['POST', 'GET'])
 def exceladd():
     if request.method == 'POST':
 
@@ -126,8 +127,9 @@ def exceladd():
             # Close the database connection
             database.close()
 
-
-        print my_id
+        print ("Record inserted successfully into python_users table")
+        val="Test added successfully"
+        return val
 
     else:
         return render_template('add.html')

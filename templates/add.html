@@ -8,7 +8,7 @@
     position: relative;
     left: 30px;
     top: 70px;
-    float: right;
+    float: left;
   }
 
   .divleft {
@@ -160,7 +160,7 @@
 </div>
 <div class="divright">
 	<p> Upload Excel : <input id="fileSelect" name="xlfile" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />  </p> </br>
-	<p> <input type="submit" value="Submit" formaction="{{ url_for('exceladd') }}"></p>
+	<p> <input type="submit" value="Submit" formaction="{{ url_for('add') }}"></p>
 </div>
 </body>
 </html>
