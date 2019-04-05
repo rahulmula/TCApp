@@ -102,14 +102,16 @@ def exceladd():
 def add():
     if request.method == 'POST':
 
-        sheet = request.form.get("xlfile")
+        # sheet = request.form.get("xlfile")
+        sheet = request.files['xlfile']
+        # data = pd.read_excel(f)
 
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         cursor = db.cursor()
         sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
         VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
 
-        for r in range(1, sheet.nrows):
+        for r in range(1, data.nrows):
             tstcategory = sheet.cell(r,1).value
             tstname = sheet.cell(r,2).value
             tstscript = sheet.cell(r,3).value
