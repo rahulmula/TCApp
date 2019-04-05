@@ -1,5 +1,6 @@
 import pymongo
 import mysql.connector
+import xlrd
 from pymongo import MongoClient
 from flask import Flask, render_template, request, url_for
 
@@ -38,7 +39,7 @@ def view():
     return render_template("view.html",data=collection)
 
 @app.route('/exceladd', methods = ['POST', 'GET'])
-def add():
+def exceladd():
     if request.method == 'POST':
         tstcategory=request.form['testcategory']
         tstname= request.form['testname']
@@ -98,7 +99,7 @@ def add():
         return render_template('add.html')
 
 @app.route('/add', methods = ['POST', 'GET'])
-def exceladd():
+def add():
     if request.method == 'POST':
 
         sheet = request.form.get("xlfile")
@@ -125,7 +126,7 @@ def exceladd():
             db.commit()
 
             # Close the database connection
-            database.close()
+            db.close()
 
         print ("Record inserted successfully into python_users table")
         val="Test added successfully"
