@@ -4,6 +4,20 @@
   <style>
   body {margin:0;}
 
+  .divright {
+    position: relative;
+    left: 30px;    
+    top: 70px;	  
+    float: right;
+  }
+
+  .divleft {
+    position: relative;
+    left: 10px;
+    top: 20px;	  
+    float: left;
+  }
+  
   .navbar {
     overflow: hidden;
     background-color: #333;
@@ -42,10 +56,10 @@
       <a href="{{ url_for('view') }}">View</a>
     </div>
     </header>
-</body>
-</html>
+
 <title>Add User - Python Flask MySQL CRUD</title>
 <h2>Add TestCase</h2>
+<div class="divleft">
 <form method="post" action="{{ url_for('add') }}">
   <fieldset>
     <legend>TestCase Details:</legend>
@@ -143,3 +157,10 @@
 	  </p>
     </fieldset>
 </form>
+</div>
+<div class="divright">
+	<p>  Upload Excel : <input id="fileSelect" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />  </p> </br>
+	<p> <input type="submit" value="Submit" formaction="{{ url_for('add') }}"></p>
+</div>
+</body>
+</html>

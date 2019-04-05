@@ -106,4 +106,4 @@ def main():
     return render_template("template.html")
 
 if __name__ == "__main__":
-    app.run(host="10.130.163.64",port=8765)
+    app.run(host="10.130.163.64",port=8000)
