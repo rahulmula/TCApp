@@ -1,6 +1,5 @@
 import pymongo
 import mysql.connector
-import MySQLdb
 from pymongo import MongoClient
 from flask import Flask, render_template, request, url_for
 
@@ -20,16 +19,18 @@ database = 'tcdata'
 def view():
     try:
         # initDb()
-        db = mysql.connector.connect(host='10.130.163.64', user='admin', passwd='Password@123', db='tcdata', port='3309')
-        cur = db.cursor()
+        db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+        #cur = db.cursor()
 
         # conn = MongoClient('mongodb://admin:admin123@TCTINFRA:27017')
         print("Connected successfully!!!")
     except:
         print("Could not connect to MongoDB")
-        
-    cur.execute("select * from tctestdata")
-    data=cur.fetchall()
+    
+    db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+    cur = db.cursor()   
+    cur.execute("SELECT * FROM tctestdata")
+    collection=cur.fetchall()
     # db = conn.tcdata
     # collection = db.tctestdata.find()
     # for x in collection.find():
@@ -49,7 +50,7 @@ def add():
         try:
             # initDb()
             # db = MySQLdb.connect(host='localhost', user='admin', passwd='Password@123', db='tcdata', port='3309')
-            db = mysql.connector.connect(host='10.130.163.64', user='admin', passwd='Password@123', db='tcdata', port='3309')
+            db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
             # cur = myConnection.cursor()
             # conn = MongoClient('mongodb://admin:admin123@TCTINFRA:27017')
             print("Connected successfully!!!")
@@ -57,13 +58,14 @@ def add():
             print("Could not connect to mysql")
 
         sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
-        VALUES('2', tstcategory, tstname, tstsuite, tstscript, tstnooftests, 'fullyautomated', 'e2e', 'yes', 'no', '20', '2018-01-11');"""
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+        sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests,'yes', 'fullyautomated', 'e2e', 'yes', 'no', '2', '2018-01-11')
         # db = MySQLdb.connect(host='10.130.163.64', user='admin', passwd='Password@123', db='tcdata', port=3309)
         # db=connection.MySQLConnection(host='localhost', user='admin', passwd='Password@123', db='tcdata', port=3309)
-        db = mysql.connector.connect(host='10.130.163.64', user='admin', passwd='Password@123', db='tcdata', port='3309')
+        db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         #cursor = myConnection.cursor()
         cursor = db.cursor()
-        result  = cursor.execute(sql_insert_query)
+        result  = cursor.execute(sql_insert_query, sql_insert_tuple)
         db.commit()
         # myConnection.commit()
         print ("Record inserted successfully into python_users table")
@@ -104,4 +106,4 @@ def main():
     return render_template("template.html")
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="10.130.163.64",port=8765)
