@@ -50,7 +50,7 @@ def delete():
             print("Connected successfully!!!")
         except:
             print("Could not connect to mysql")
-        sql_Delete_query = "Delete from mobile where testname = %s"
+        sql_Delete_query = "Delete from mobile where testname = %s;"
         testname = tstname
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         cursor = db.cursor()
