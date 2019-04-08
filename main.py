@@ -39,8 +39,8 @@ def view():
     return render_template("view.html",data=collection)
 
 
-@app.route('/del', methods = ['POST', 'GET'])
-def del():
+@app.route('/delete', methods = ['POST', 'GET'])
+def delete():
     if request.method == 'POST':
         tstname= request.form['testname']
         try:

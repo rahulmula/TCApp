@@ -54,14 +54,14 @@
       <a><font size="5">TCApp</font></a>
       <a href="{{ url_for('add') }}">Add</a>
       <a href="{{ url_for('view') }}">View</a>
-      <a href="{{ url_for('del') }}">Delete</a>
+      <a href="{{ url_for('delete') }}">Delete</a>
     </div>
     </header>
 
 <title>Add User - Python Flask MySQL CRUD</title>
 <h2>Add TestCase</h2>
 <div class="divleft">
-<form method="post" action="{{ url_for('del') }}">
+<form method="post" action="{{ url_for('delete') }}">
   <fieldset>
     <legend>Delete TestCase:</legend>
     <dl>
@@ -70,7 +70,7 @@
   		</p>
     </dl>
     <p>
-		<input type="submit" value="Submit" formaction="{{ url_for('del') }}">
+		<input type="submit" value="Submit" formaction="{{ url_for('delete') }}">
     <label>{{val}}</label>
 	  </p>
     </fieldset>
