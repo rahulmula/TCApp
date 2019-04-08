@@ -38,65 +38,65 @@ def view():
     #   print(x)
     return render_template("view.html",data=collection)
 
-# @app.route('/exceladd', methods = ['POST', 'GET'])
-# def exceladd():
-#     if request.method == 'POST':
-#         tstcategory=request.form['testcategory']
-#         tstname= request.form['testname']
-#         tstsuite= request.form['testsuite']
-#         tstscript= request.form['testscript']
-#         tstdescription= request.form['description']
-#         tstnooftests= request.form['no.of.tests']
-#
-#         try:
-#             # initDb()
-#             # db = MySQLdb.connect(host='localhost', user='admin', passwd='Password@123', db='tcdata', port='3309')
-#             db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
-#
-#             print("Connected successfully!!!")
-#         except:
-#             print("Could not connect to mysql")
-#
-#         sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
-#         VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
-#         sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests,'yes', 'fullyautomated', 'e2e', 'yes', 'no', '2', '2018-01-11')
-#
-#         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
-#         cursor = db.cursor()
-#         result  = cursor.execute(sql_insert_query, sql_insert_tuple)
-#         db.commit()
-#         # myConnection.commit()
-#         print ("Record inserted successfully into python_users table")
-#         val="Test added successfully"
-#         # db = conn.tcdata
-#         # collection = db.tctestdata
-#         # tcCategory = request.form['testcategory']
-#         # emp_rec1={"uid":"11", "category":tstcategory, "testname":tstname, "testscript":tstscript, "no_of_tests":tstnooftests, "os_applicability": {
-#         #         "centOS":"Yes",
-#         #         "ubuntu1604":"Yes",
-#         #         "ubuntu1804":"Yes"
-#         #         },
-#         #         "applicable_category": {
-#         #         "sanity":"Yes",
-#         #         "regression":"Yes",
-#         #         "performance":"Yes",
-#         #         "release":"Yes"
-#         #         },
-#         #         "fullcycle":"Yes",
-#         #         "automation_status":"FullyAutomated",
-#         #         "automation_type": "skynetE2E",
-#         #         "CanbeMgpu":"0.1",
-#         #         "IsMgpu":"0.1",
-#         #         "execution_time_in_min": "1",
-#         #         "coverageDate":"0.1"
-#         #         }
-#         # rec_id1 = collection.insert_one(emp_rec1)
-#         # print("Record inserted in the collection", rec_id1)
-#
-#         # return render_template({'key_val':val})
-#         return val
-#     else:
-#         return render_template('add.html')
+@app.route('/exceladd', methods = ['POST', 'GET'])
+def exceladd():
+    if request.method == 'POST':
+        tstcategory=request.form['testcategory']
+        tstname= request.form['testname']
+        tstsuite= request.form['testsuite']
+        tstscript= request.form['testscript']
+        tstdescription= request.form['description']
+        tstnooftests= request.form['no.of.tests']
+
+        try:
+            # initDb()
+            # db = MySQLdb.connect(host='localhost', user='admin', passwd='Password@123', db='tcdata', port='3309')
+            db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+
+            print("Connected successfully!!!")
+        except:
+            print("Could not connect to mysql")
+
+        sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+        sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests,'yes', 'fullyautomated', 'e2e', 'yes', 'no', '2', '2018-01-11')
+
+        db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+        cursor = db.cursor()
+        result  = cursor.execute(sql_insert_query, sql_insert_tuple)
+        db.commit()
+        # myConnection.commit()
+        print ("Record inserted successfully into python_users table")
+        val="Test added successfully"
+        # db = conn.tcdata
+        # collection = db.tctestdata
+        # tcCategory = request.form['testcategory']
+        # emp_rec1={"uid":"11", "category":tstcategory, "testname":tstname, "testscript":tstscript, "no_of_tests":tstnooftests, "os_applicability": {
+        #         "centOS":"Yes",
+        #         "ubuntu1604":"Yes",
+        #         "ubuntu1804":"Yes"
+        #         },
+        #         "applicable_category": {
+        #         "sanity":"Yes",
+        #         "regression":"Yes",
+        #         "performance":"Yes",
+        #         "release":"Yes"
+        #         },
+        #         "fullcycle":"Yes",
+        #         "automation_status":"FullyAutomated",
+        #         "automation_type": "skynetE2E",
+        #         "CanbeMgpu":"0.1",
+        #         "IsMgpu":"0.1",
+        #         "execution_time_in_min": "1",
+        #         "coverageDate":"0.1"
+        #         }
+        # rec_id1 = collection.insert_one(emp_rec1)
+        # print("Record inserted in the collection", rec_id1)
+
+        # return render_template({'key_val':val})
+        return val
+    else:
+        return render_template('add.html')
 
 # @app.route('/add', methods = ['POST', 'GET'])
 # def add():
