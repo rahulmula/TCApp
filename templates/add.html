@@ -60,7 +60,7 @@
 <title>Add User - Python Flask MySQL CRUD</title>
 <h2>Add TestCase</h2>
 <div class="divleft">
-<form method="post" action="{{ url_for('add') }}">
+<form method="post" action="{{ url_for('exceladd') }}">
   <fieldset>
     <legend>TestCase Details:</legend>
     <dl>
@@ -159,10 +159,10 @@
 </form>
 </div>
 <div class="divright">
-  <form>
+  <form formaction="{{ url_for('add') }}" method = "POST" enctype = "multipart/form-data">
     <fieldset>
 	<p> Upload Excel : <input id="fileSelect" name="xlfile" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />  </p> </br>
-	<p> <input type="submit" value="Submit" formaction="{{ url_for('add') }}"></p>
+	<p> <input type="submit" value="Submit" ></p>
 </fieldset>
 </form>
 </div>
