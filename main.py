@@ -38,6 +38,29 @@ def view():
     #   print(x)
     return render_template("view.html",data=collection)
 
+
+@app.route('/del', methods = ['POST', 'GET'])
+def del():
+    if request.method == 'POST':
+        tstname= request.form['testname']
+        try:
+            # initDb()
+            # db = MySQLdb.connect(host='localhost', user='admin', passwd='Password@123', db='tcdata', port='3309')
+            db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+            print("Connected successfully!!!")
+        except:
+            print("Could not connect to mysql")
+        sql_Delete_query = """Delete from mobile where id = %s"""
+        testname = tstname
+        db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+        cursor = db.cursor()
+        result  = cursor.execute(sql_Delete_query, testname)
+        db.commit()
+        print("\n Record Deleted successfully ")
+    else:
+        return render_template('delete.html')
+
+
 @app.route('/exceladd', methods = ['POST', 'GET'])
 def exceladd():
     if request.method == 'POST':
