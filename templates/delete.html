@@ -54,6 +54,7 @@
       <a><font size="5">TCApp</font></a>
       <a href="{{ url_for('add') }}">Add</a>
       <a href="{{ url_for('view') }}">View</a>
+      <a href="{{ url_for('del') }}">Delete</a>
     </div>
     </header>
 
@@ -62,7 +63,7 @@
 <div class="divleft">
 <form method="post" action="{{ url_for('del') }}">
   <fieldset>
-    <legend>TestCase Details:</legend>
+    <legend>Delete TestCase:</legend>
     <dl>
       <p>
   			<input name="testname" value="" type="text" placeholder="TestName" autocomplete="off" required>
