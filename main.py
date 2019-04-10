@@ -141,22 +141,10 @@ def exceladd():
 def add():
     if request.method == 'POST':
 
-        UPLOAD_FOLDER = '/home/taccuser/flask1804/excel/'
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['xlfile']
-        # if user does not select file, browser also
-        # submit an empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(UPLOAD_FOLDER, filename))
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
+        app.config['UPLOAD_FOLDER'] = '/home/taccuser/flask1804/excel/'
+
+        f = request.files['file']
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
 
         # sheet = request.form['xlfile']
         # data = pd.read_excel(f)
@@ -188,7 +176,7 @@ def add():
         #     # db.close()
         #
         # print ("Record inserted successfully into python_users table")
-        val="Test added successfully"
+        val="File uploaded successfully"
         return val
 
     else:
