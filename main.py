@@ -53,12 +53,12 @@ def delete():
         sql_Delete_query = "DELETE FROM tctestdata WHERE testname = %s"
         #testname = tstname
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
-        
-        
+
+
         adr = (request.form['testname'], )
 
         #mycursor.execute(sql, adr)
-        
+
         cursor = db.cursor()
         cursor.execute(sql_Delete_query, adr)
         db.commit()
@@ -78,6 +78,16 @@ def exceladd():
         tstdescription= request.form['description']
         tstnooftests= request.form['no.of.tests']
 
+        # Get data from fields
+        form = request.form.getlist('check')
+
+        if form.getvalue('centos'):
+            centos = form.getvalue('centos')
+        elif form.getvalue('ubuntu16'):
+            ubuntu1604 = form.getvalue('ubuntu16')
+        elif form.getvalue('ubuntu18'):
+            ubuntu1804 = form.getvalue('ubuntu18')
+
         try:
             # initDb()
             # db = MySQLdb.connect(host='localhost', user='admin', passwd='Password@123', db='tcdata', port='3309')
@@ -89,7 +99,7 @@ def exceladd():
 
         sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
         VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
-        sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests,'yes', 'fullyautomated', 'e2e', 'yes', 'no', '2', '2018-01-11')
+        sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests, centos, ubuntu16, ubuntu18, 'yes', 'no', '2', '2018-01-11')
 
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         cursor = db.cursor()
@@ -98,30 +108,7 @@ def exceladd():
         # myConnection.commit()
         print ("Record inserted successfully into python_users table")
         val="Test added successfully"
-        # db = conn.tcdata
-        # collection = db.tctestdata
-        # tcCategory = request.form['testcategory']
-        # emp_rec1={"uid":"11", "category":tstcategory, "testname":tstname, "testscript":tstscript, "no_of_tests":tstnooftests, "os_applicability": {
-        #         "centOS":"Yes",
-        #         "ubuntu1604":"Yes",
-        #         "ubuntu1804":"Yes"
-        #         },
-        #         "applicable_category": {
-        #         "sanity":"Yes",
-        #         "regression":"Yes",
-        #         "performance":"Yes",
-        #         "release":"Yes"
-        #         },
-        #         "fullcycle":"Yes",
-        #         "automation_status":"FullyAutomated",
-        #         "automation_type": "skynetE2E",
-        #         "CanbeMgpu":"0.1",
-        #         "IsMgpu":"0.1",
-        #         "execution_time_in_min": "1",
-        #         "coverageDate":"0.1"
-        #         }
-        # rec_id1 = collection.insert_one(emp_rec1)
-        # print("Record inserted in the collection", rec_id1)
+
 
         # return render_template({'key_val':val})
         return val
