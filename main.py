@@ -149,29 +149,33 @@ def add():
         # sheet = request.form['xlfile']
         # data = pd.read_excel(f)
 
-        book = xlrd.open_workbook(f)
-        sheet = book.sheet_by_index(0)
+        book = xlrd.open_workbook('/home/taccuser/flask1804/excel/excel.xlsx')
+        sheet = book.sheet_by_name('Sheet1')
 
 
-        db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
-        cursor = db.cursor()
+        #db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+        #cursor = db.cursor()
         sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
         VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
 
         for r in range(1, sheet.nrows):
-            tstcategory = sheet.cell(r,).value
-            tstname = sheet.cell(r,1).value
-            tstscript = sheet.cell(r,2).value
-            tstnooftests = sheet.cell(r,3).value
+            tstcategory = sheet.row(r)[0].value
+            tstname = sheet.row(r)[1].value
+            tstscript = sheet.row(r)[3].value
+            tstnooftests = sheet.row(r)[4].value
 
             # Assign values from each row
             sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests,'yes', 'fullyautomated', 'e2e', 'yes', 'no', '2', '2018-01-11')
-            result  = cursor.execute(sql_insert_query, sql_insert_tuple)
+            
+            db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+            cursor = db.cursor()
+            
+            cursor.execute(sql_insert_query, sql_insert_tuple)
+            
+            db.commit()
 
             # Close the cursor
-            cursor.close()
-
-            db.commit()
+            
 
             # Close the database connection
             # db.close()
