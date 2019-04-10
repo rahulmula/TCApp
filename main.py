@@ -143,40 +143,41 @@ def add():
 
         app.config['UPLOAD_FOLDER'] = '/home/taccuser/flask1804/excel/'
 
-        f = request.files['file']
+        f = request.files['xlfile']
         f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
 
         # sheet = request.form['xlfile']
         # data = pd.read_excel(f)
 
-        # book = xlrd.open_workbook(sheet)
-        # sht = book.sheet_by_index(0)
-        #
-        # db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
-        # cursor = db.cursor()
-        # sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
-        # VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
-        #
-        # for r in range(1, sheet.nrows):
-        #     tstcategory = sheet.cell(r,1).value
-        #     tstname = sheet.cell(r,2).value
-        #     tstscript = sheet.cell(r,3).value
-        #     tstnooftests = sheet.cell(r,4).value
-        #
-        #     # Assign values from each row
-        #     sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests,'yes', 'fullyautomated', 'e2e', 'yes', 'no', '2', '2018-01-11')
-        #     result  = cursor.execute(sql_insert_query, sql_insert_tuple)
-        #
-        #     # Close the cursor
-        #     cursor.close()
-        #
-        #     db.commit()
-        #
-        #     # Close the database connection
-        #     # db.close()
-        #
+        book = xlrd.open_workbook("excel.xlsx")
+        sheet = book.sheet_by_name("/home/taccuser/flask1804/excel/")
+
+
+        db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+        cursor = db.cursor()
+        sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+
+        for r in range(1, sheet.nrows):
+            tstcategory = sheet.cell(r,).value
+            tstname = sheet.cell(r,1).value
+            tstscript = sheet.cell(r,2).value
+            tstnooftests = sheet.cell(r,3).value
+
+            # Assign values from each row
+            sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests,'yes', 'fullyautomated', 'e2e', 'yes', 'no', '2', '2018-01-11')
+            result  = cursor.execute(sql_insert_query, sql_insert_tuple)
+
+            # Close the cursor
+            cursor.close()
+
+            db.commit()
+
+            # Close the database connection
+            # db.close()
+
         # print ("Record inserted successfully into python_users table")
-        val="File uploaded successfully"
+        val="File inserted successfully"
         return val
 
     else:
