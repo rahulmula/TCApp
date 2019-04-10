@@ -81,12 +81,12 @@ def exceladd():
         # Get data from fields
         form = request.form.getlist('check')
 
-        if form.getvalue('centos'):
-            centos = form.getvalue('centos')
-        elif form.getvalue('ubuntu16'):
-            ubuntu1604 = form.getvalue('ubuntu16')
-        elif form.getvalue('ubuntu18'):
-            ubuntu1804 = form.getvalue('ubuntu18')
+        if form == 'centos':
+            centos = yes
+        elif form == 'ubuntu16':
+            ubuntu1604 = yes
+        elif form == 'ubuntu18':
+            ubuntu1804 = yes
 
         try:
             # initDb()
