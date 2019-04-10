@@ -149,8 +149,8 @@ def add():
         # sheet = request.form['xlfile']
         # data = pd.read_excel(f)
 
-        book = xlrd.open_workbook("excel.xlsx")
-        sheet = book.sheet_by_name("/home/taccuser/flask1804/excel/")
+        book = xlrd.open_workbook(f)
+        sheet = book.sheet_by_index(0)
 
 
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
