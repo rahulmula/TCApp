@@ -30,7 +30,7 @@ def view():
 
     db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
     cur = db.cursor()
-    cur.execute("SELECT * FROM tctestdata")
+    cur.execute("SELECT * FROM tctestdata;")
     collection=cur.fetchall()
     # db = conn.tcdata
     # collection = db.tctestdata.find()
@@ -50,13 +50,20 @@ def delete():
             print("Connected successfully!!!")
         except:
             print("Could not connect to mysql")
-        sql_Delete_query = "Delete from mobile where testname = %s;"
-        testname = tstname
+        sql_Delete_query = "DELETE FROM tctestdata WHERE testname = %s"
+        #testname = tstname
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+        
+        
+        adr = (request.form['testname'], )
+
+        #mycursor.execute(sql, adr)
+        
         cursor = db.cursor()
-        result  = cursor.execute(sql_Delete_query, testname)
+        cursor.execute(sql_Delete_query, adr)
         db.commit()
-        print("\n Record Deleted successfully ")
+        val="record deleted successfully"
+        return val
     else:
         return render_template('delete.html')
 
@@ -178,7 +185,7 @@ def add():
     #
     #     try:
     #         # initDb()
-    #         # db = MySQLdb.connect(host='localhost', user='admin', passwd='Password@123', db='tcdata', port='3309')
+    #         # db = MySQLdb.connect(host='localhost', user='admin', passwd='Password@122', db='tcdata', port='3309')
     #         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
     #         # cur = myConnection.cursor()
     #         # conn = MongoClient('mongodb://admin:admin123@TCTINFRA:27017')
