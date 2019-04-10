@@ -1,8 +1,11 @@
 import pymongo
 import mysql.connector
 import xlrd
+import os
 from pymongo import MongoClient
 from flask import Flask, render_template, request, url_for
+from werkzeug.utils import secure_filename
+
 
 
 app = Flask(__name__)
@@ -11,6 +14,15 @@ hostname = 'localhost'
 username = 'admin'
 password = 'Password@123'
 database = 'tcdata'
+
+
+
+ALLOWED_EXTENSIONS = set(['csv', 'xls', 'xlsx'])
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 # def initDb():
 #     global myConnection
@@ -79,14 +91,14 @@ def exceladd():
         tstnooftests= request.form['no.of.tests']
 
         # Get data from fields
-        form = request.form.getlist('check')
-
-        if form == 'centos':
-            centos = yes
-        elif form == 'ubuntu16':
-            ubuntu1604 = yes
-        elif form == 'ubuntu18':
-            ubuntu1804 = yes
+        # form = request.form.getlist('check')
+        #
+        # if form == 'centos':
+        #     centos = 'yes'
+        # elif form == 'ubuntu16':
+        #     ubuntu1604 = 'yes'
+        # elif form == 'ubuntu18':
+        #     ubuntu1804 = 'yes'
 
         try:
             # initDb()
@@ -99,7 +111,7 @@ def exceladd():
 
         sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
         VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
-        sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests, centos, ubuntu16, ubuntu18, 'yes', 'no', '2', '2018-01-11')
+        sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests, 'centos', 'ubuntu16', 'ubuntu18', 'yes', 'no', '2', '2018-01-11')
 
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         cursor = db.cursor()
@@ -129,36 +141,53 @@ def exceladd():
 def add():
     if request.method == 'POST':
 
-        sheet = request.form['xlfile']
+        UPLOAD_FOLDER = '/home/taccuser/flask1804/excel/'
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['xlfile']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            return redirect(url_for('uploaded_file',
+                                    filename=filename))
+
+        # sheet = request.form['xlfile']
         # data = pd.read_excel(f)
 
-        book = xlrd.open_workbook(sheet)
-        sht = book.sheet_by_index(0)
-
-        db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
-        cursor = db.cursor()
-        sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
-        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
-
-        for r in range(1, sheet.nrows):
-            tstcategory = sheet.cell(r,1).value
-            tstname = sheet.cell(r,2).value
-            tstscript = sheet.cell(r,3).value
-            tstnooftests = sheet.cell(r,4).value
-
-            # Assign values from each row
-            sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests,'yes', 'fullyautomated', 'e2e', 'yes', 'no', '2', '2018-01-11')
-            result  = cursor.execute(sql_insert_query, sql_insert_tuple)
-
-            # Close the cursor
-            cursor.close()
-
-            db.commit()
-
-            # Close the database connection
-            # db.close()
-
-        print ("Record inserted successfully into python_users table")
+        # book = xlrd.open_workbook(sheet)
+        # sht = book.sheet_by_index(0)
+        #
+        # db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+        # cursor = db.cursor()
+        # sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
+        # VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+        #
+        # for r in range(1, sheet.nrows):
+        #     tstcategory = sheet.cell(r,1).value
+        #     tstname = sheet.cell(r,2).value
+        #     tstscript = sheet.cell(r,3).value
+        #     tstnooftests = sheet.cell(r,4).value
+        #
+        #     # Assign values from each row
+        #     sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests,'yes', 'fullyautomated', 'e2e', 'yes', 'no', '2', '2018-01-11')
+        #     result  = cursor.execute(sql_insert_query, sql_insert_tuple)
+        #
+        #     # Close the cursor
+        #     cursor.close()
+        #
+        #     db.commit()
+        #
+        #     # Close the database connection
+        #     # db.close()
+        #
+        # print ("Record inserted successfully into python_users table")
         val="Test added successfully"
         return val
 
