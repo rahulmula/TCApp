@@ -155,27 +155,43 @@ def add():
 
         #db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         #cursor = db.cursor()
-        sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
-        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+        sql_insert_query = """ INSERT INTO tctestdata (testcategory, testname, testsuite, testscript, description, no.of.tests, centos, ubuntu1604, ubuntu1804, sanity, regression, performance, release, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
 
         for r in range(1, sheet.nrows):
             tstcategory = sheet.row(r)[0].value
             tstname = sheet.row(r)[1].value
+            tstsuite = sheet.row(r)[2].value
             tstscript = sheet.row(r)[3].value
-            tstnooftests = sheet.row(r)[4].value
+            tstdescription = sheet.row(r)[4].value
+            no_of_tests = sheet.row(r)[5].value
+            centos = sheet.row(r)[6].value
+            ubuntu1604 = sheet.row(r)[7].value
+            ubuntu1804 = sheet.row(r)[8].value
+            sanity = sheet.row(r)[9].value
+            regression = sheet.row(r)[10].value
+            performance = sheet.row(r)[11].value
+            release = sheet.row(r)[12].value
+            fullcycle = sheet.row(r)[13].value
+            automationstatus = sheet.row(r)[14].value
+            automationtype = sheet.row(r)[15].value
+            canbeMGPU = sheet.row(r)[16].value
+            isMGPU = sheet.row(r)[17].value
+            executiontime = sheet.row(r)[18].value
+
 
             # Assign values from each row
-            sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests,'yes', 'fullyautomated', 'e2e', 'yes', 'no', '2', '2018-01-11')
-            
+            sql_insert_tuple = (tstcategory, tstname, tstsuite, tstscript, tstnooftests, tstdescription, no_of_tests, centos, ubuntu1604, ubuntu1804, sanity, regression, performance, release, fullcycle, automationstatus, automationtype, canbeMGPU, isMGPU, executiontime,'2018-01-11')
+
             db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
             cursor = db.cursor()
-            
+
             cursor.execute(sql_insert_query, sql_insert_tuple)
-            
+
             db.commit()
 
             # Close the cursor
-            
+
 
             # Close the database connection
             # db.close()
