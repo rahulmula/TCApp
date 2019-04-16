@@ -40,7 +40,7 @@ def view():
 
     db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
     cur = db.cursor()
-    cur.execute("SELECT * FROM tctestdata;")
+    cur.execute("SELECT testcategory, testname, testsuite, testscript, testdescription, no_of_tests, centos, ubuntu1604, ubuntu1804, sanity, regression, performance, releases, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate FROM tctestdata;")
     collection=cur.fetchall()
     # db = conn.tcdata
     # collection = db.tctestdata.find()
