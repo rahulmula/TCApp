@@ -153,8 +153,8 @@ def add():
 
         #db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         #cursor = db.cursor()
-        sql_insert_query = """ INSERT INTO tctestdata (testcategory, testname, testsuite, testscript, testdescription, no_of_tests, centos, ubuntu1604, ubuntu1804, sanity, regression, performance, release, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
-        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+        sql_insert_query = """ INSERT INTO tctestdata (testcategory, testname, testsuite, testscript, testdescription, no_of_tests, centos, ubuntu1604, ubuntu1804, sanity, regression, performance, releases, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
 
         for r in range(1, sheet.nrows):
             tstcategory = sheet.row(r)[0].value
