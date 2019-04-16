@@ -1,8 +1,6 @@
-import pymongo
 import mysql.connector
 import xlrd
 import os
-from pymongo import MongoClient
 from flask import Flask, render_template, request, url_for
 from werkzeug.utils import secure_filename
 
@@ -141,7 +139,7 @@ def exceladd():
 def add():
     if request.method == 'POST':
 
-        app.config['UPLOAD_FOLDER'] = '/home/taccuser/flask1804/excel/'
+        app.config['UPLOAD_FOLDER'] = '/home/automation/TCapp/excel/'
 
         f = request.files['xlfile']
         f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
@@ -149,13 +147,13 @@ def add():
         # sheet = request.form['xlfile']
         # data = pd.read_excel(f)
 
-        book = xlrd.open_workbook('/home/taccuser/flask1804/excel/excel.xlsx')
+        book = xlrd.open_workbook('/home/automation/TCapp/excel/excel.xlsx')
         sheet = book.sheet_by_name('Sheet1')
 
 
         #db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         #cursor = db.cursor()
-        sql_insert_query = """ INSERT INTO tctestdata (testcategory, testname, testsuite, testscript, description, no.of.tests, centos, ubuntu1604, ubuntu1804, sanity, regression, performance, release, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
+        sql_insert_query = """ INSERT INTO tctestdata (testcategory, testname, testsuite, testscript, testdescription, no_of_tests, centos, ubuntu1604, ubuntu1804, sanity, regression, performance, release, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
         VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
 
         for r in range(1, sheet.nrows):
@@ -171,7 +169,7 @@ def add():
             sanity = sheet.row(r)[9].value
             regression = sheet.row(r)[10].value
             performance = sheet.row(r)[11].value
-            release = sheet.row(r)[12].value
+            releases = sheet.row(r)[12].value
             fullcycle = sheet.row(r)[13].value
             automationstatus = sheet.row(r)[14].value
             automationtype = sheet.row(r)[15].value
@@ -181,7 +179,7 @@ def add():
 
 
             # Assign values from each row
-            sql_insert_tuple = (tstcategory, tstname, tstsuite, tstscript, tstnooftests, tstdescription, no_of_tests, centos, ubuntu1604, ubuntu1804, sanity, regression, performance, release, fullcycle, automationstatus, automationtype, canbeMGPU, isMGPU, executiontime,'2018-01-11')
+            sql_insert_tuple = (tstcategory, tstname, tstsuite, tstscript, tstdescription, no_of_tests, centos, ubuntu1604, ubuntu1804, sanity, regression, performance, releases, fullcycle, automationstatus, automationtype, canbeMGPU, isMGPU, executiontime,'2018-01-11')
 
             db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
             cursor = db.cursor()
@@ -243,4 +241,4 @@ def main():
     return render_template("template.html")
 
 if __name__ == "__main__":
-    app.run(host="10.130.163.64",port=8000)
+    app.run(host="10.130.163.64",port=8000, debug=True)
