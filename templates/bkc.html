@@ -198,7 +198,7 @@ input {
           <legend>Add BKC:</legend>
       <p> Date: <input type="date" name="date" id="date"> </p>
     	<p> BKC_Version: <input name="BKC_Version" value="" type="text" placeholder="BKCVersion" autocomplete="off" required>  </p> </br>
-    	<p> <input type="submit" value="Submit" ></p><label>{{data}}</label>
+    	<p> <input type="submit" value="Submit" formaction="{{ url_for('bkcadd') }}"></p><label>{{key}}</label>
     </fieldset>
     </form>
     </div>

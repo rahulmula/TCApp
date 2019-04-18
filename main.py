@@ -114,7 +114,7 @@ def bkcadd():
         db.commit()
 
         val="data added successfully"
-        return render_template('bkc.html',data=val)
+        return render_template('bkc.html',key=val)
     else:
         return render_template('bkc.html')
 
