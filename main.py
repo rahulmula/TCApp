@@ -78,6 +78,13 @@ def delete():
     else:
         return render_template('delete.html')
 
+@app.route('/bkcadd', methods = ['POST', 'GET'])
+def exceladd():
+    if request.method == 'POST':
+        val="record inserted successfully"
+        return val
+    else:
+        return render_template('bkc.html')
 
 @app.route('/exceladd', methods = ['POST', 'GET'])
 def exceladd():
@@ -144,12 +151,12 @@ def add():
     if request.method == 'POST':
 
         app.config['UPLOAD_FOLDER'] = '/home/automation/TCapp/excel/'
-       
+
         f = request.files['xlfile']
         f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
-        
+
         now = datetime.now()
-        formatted_date = now.strftime('%d-%m-%y:%H:%M:%S')      
+        formatted_date = now.strftime('%d-%m-%y:%H:%M:%S')
 
         # sheet = request.form['xlfile']
         # data = pd.read_excel(f)

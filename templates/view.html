@@ -30,6 +30,21 @@
     margin-top: 0px;
     border: 1px solid rgba(255,255,255,0.3);
   }
+
+  .divright {
+    position: relative;
+    left: 30px;
+    top: 70px;
+    float: left;
+  }
+
+  .divleft {
+    position: relative;
+    left: 10px;
+    top: 20px;
+    float: left;
+  }
+
   th{
     padding: 20px 15px;
     text-align: left;
@@ -141,34 +156,12 @@
     <a href="{{ url_for('view') }}">View</a>
     <a href="{{ url_for('delete') }}">Delete</a>
   </div>
+ </header>
 </body>
-  </header>
+
 <section>
   <!--for demo wrap-->
   <h1>Test Case Details</h1>
-  <!-- <div class="tbl-header">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <thead>
-        <tr>
-          <th>TestCategory</th>
-          <th>TestName</th>
-          <th>TestSuite</th>
-          <th>TestScript</th>
-          <th>Description</th>
-          <th>no.of.tests</th>
-          <th>CentOS</th>
-          <th>Ubuntu1604</th>
-          <th>Ubuntu1804</th>
-          <th>Sanity</th>
-          <th>Regression</th>
-          <th>Performance</th>
-          <th>Release</th>
-          <th>AutomationStatus</th>
-          <th>AutomationType</th>
-        </tr>
-      </thead>
-    </table>
-  </div> -->
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
       <!-- <tbody> -->
@@ -193,15 +186,7 @@
           <th>ExecutionTime(Min)</th>
           <th>DateAdded</th>
         </tr>
-        <!-- </tbody> -->
-        <!-- <tbody>
-        {% for row in data %}
-            <tr>
-                <td><%= row.category %></td>
-                <td><%= row.testname %></td>
-            </tr>
-        {% endfor %}
-        </tbody> -->
+
 
         {% for row in data %}
         <tr>
@@ -210,176 +195,9 @@
           {% endfor %}
         </tr>
         {% endfor %}
-
-        <!-- {% for row in data %}
-        <tr>
-          {% for d in row %}
-   	      <td>{{ d }}</td>
-          {% endfor %}
-        </tr>
-        {% endfor %} -->
-
-
-        <!-- <tr>
-          <td>ROCRTest</td>
-          <td>KFDTest</td>
-          <td>KFD</td>
-          <td>KFDTest.sh</td>
-          <td>39</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>FullyAutomated</td>
-          <td>SkyNetE2E</td>
-          <td>ScriptLogCheck</td>
-          <td>ScriptLogCheck</td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>ROCRTest</td>
-          <td>KFDTest</td>
-          <td>KFD</td>
-          <td>KFDTest.sh</td>
-          <td>39</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>FullyAutomated</td>
-          <td>SkyNetE2E</td>
-          <td>ScriptLogCheck</td>
-          <td>ScriptLogCheck</td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>ROCRTest</td>
-          <td>KFDTest</td>
-          <td>KFD</td>
-          <td>KFDTest.sh</td>
-          <td>39</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>FullyAutomated</td>
-          <td>SkyNetE2E</td>
-          <td>ScriptLogCheck</td>
-          <td>ScriptLogCheck</td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>ROCRTest</td>
-          <td>KFDTest</td>
-          <td>KFD</td>
-          <td>KFDTest.sh</td>
-          <td>39</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>FullyAutomated</td>
-          <td>SkyNetE2E</td>
-          <td>ScriptLogCheck</td>
-          <td>ScriptLogCheck</td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>ROCRTest</td>
-          <td>KFDTest</td>
-          <td>KFD</td>
-          <td>KFDTest.sh</td>
-          <td>39</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>FullyAutomated</td>
-          <td>SkyNetE2E</td>
-          <td>ScriptLogCheck</td>
-          <td>ScriptLogCheck</td>
-          <td>No</td>
-        </tr>
-        <tr>
-          <td>ROCRTest</td>
-          <td>KFDTest</td>
-          <td>KFD</td>
-          <td>KFDTest.sh</td>
-          <td>39</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>No</td>
-          <td>Yes</td>
-          <td>FullyAutomated</td>
-          <td>SkyNetE2E</td>
-          <td>ScriptLogCheck</td>
-          <td>ScriptLogCheck</td>
-          <td>No</td>
-        </tr> -->
 
 
     </table>
   </div>
 </section>
-
-
-
-<!-- follow me template -->
-<!-- <div class="made-with-love">
-  Made with
-  <i>♥</i> by
-  <a target="_blank" href="https://codepen.io/nikhil8krishnan">Nikhil Krishnan</a>
-</div>
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-
-    <script src="js/index.js"></script> -->
-
-
-
-<!-- <body>
-<table border="1" , width="400",cellpadding=100>
-   <tr>
-
-  <th>TestCategory</th>
-	<th>TestName</th>
-  <th>TestScript</th>
-  <th>No.Of.Tests</th>
-	<th>NO_OF_GPU</th>
-  <th>os_applicability</th>
-	<th>CentOS</th>
-	<th>Ubuntu1604</th>
-	<th>Ubuntu1804</th>
-	<th>Applicable_Category</th>
-	<th>Full_Cycle</th>
-	<th>Automation_Status</th>
-	<th>Automation_Type</th>
-	<th>CanBeMGPU</th>
-	<th>IsMGPU</th>
-	<th>ExecutionTime</th>
-	<!-- <th>Date</th>
-	<th>TEAM</th>
-	<th>OWNER</th> -->
-
-   <!--</tr>
-     {% for row in data %}
-        <tr>
-        {% for d in row %}
-	   {% if  d == "ONLINE" %}
-	     <td><span style="background-color:green;color:white">{{ d }} </span>
-           {% elif  d == "OFFLINE" %}
-	     <td><span style="background-color:red;color:white">{{ d }} </span>
-	   {% else %}
-	     <td>{{ d }}</td>
-	   {% endif %}
-        {% endfor %}
-        </tr>
-    {% endfor %}
-</table>
- </body> -->
 </html>
