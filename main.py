@@ -95,9 +95,9 @@ def delete():
 def bkcadd():
     if request.method == 'POST':
 
-        bkcdata = request.form['date']
-		bkcversion = request.form['BKC_Version']
-
+        bkcdata=request.form['date']
+        bkcversion=request.form['BKC_Version']
+		
         try:
 
             db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
