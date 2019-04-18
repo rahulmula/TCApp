@@ -3,7 +3,7 @@ import xlrd
 import os
 from flask import Flask, render_template, request, url_for
 from werkzeug.utils import secure_filename
-
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -16,6 +16,7 @@ database = 'tcdata'
 
 
 ALLOWED_EXTENSIONS = set(['csv', 'xls', 'xlsx'])
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -98,6 +99,9 @@ def exceladd():
         # elif form == 'ubuntu18':
         #     ubuntu1804 = 'yes'
 
+        now = datetime.now()
+        formatted_date = now.strftime('%d-%m-%y:%H:%M:%S')
+
         try:
             # initDb()
             # db = MySQLdb.connect(host='localhost', user='admin', passwd='Password@123', db='tcdata', port='3309')
@@ -109,7 +113,7 @@ def exceladd():
 
         sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
         VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
-        sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests, 'centos', 'ubuntu16', 'ubuntu18', 'yes', 'no', '2', '2018-01-11')
+        sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests, 'centos', 'ubuntu16', 'ubuntu18', 'yes', 'no', '2', formatted_date)
 
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         cursor = db.cursor()
@@ -140,9 +144,12 @@ def add():
     if request.method == 'POST':
 
         app.config['UPLOAD_FOLDER'] = '/home/automation/TCapp/excel/'
-
+       
         f = request.files['xlfile']
         f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+        
+        now = datetime.now()
+        formatted_date = now.strftime('%d-%m-%y:%H:%M:%S')      
 
         # sheet = request.form['xlfile']
         # data = pd.read_excel(f)
@@ -179,7 +186,7 @@ def add():
 
 
             # Assign values from each row
-            sql_insert_tuple = (tstcategory, tstname, tstsuite, tstscript, tstdescription, no_of_tests, centos, ubuntu1604, ubuntu1804, sanity, regression, performance, releases, fullcycle, automationstatus, automationtype, canbeMGPU, isMGPU, executiontime,'2018-01-11')
+            sql_insert_tuple = (tstcategory, tstname, tstsuite, tstscript, tstdescription, no_of_tests, centos, ubuntu1604, ubuntu1804, sanity, regression, performance, releases, fullcycle, automationstatus, automationtype, canbeMGPU, isMGPU, executiontime, formatted_date)
 
             db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
             cursor = db.cursor()
