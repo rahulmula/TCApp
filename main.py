@@ -95,9 +95,9 @@ def delete():
 def bkcadd():
     if request.method == 'POST':
 
-        bkcdata=request.form['date']
+        bkcdate=request.form['date']
         bkcversion=request.form['BKC_Version']
-		
+
         try:
 
             db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
@@ -106,12 +106,11 @@ def bkcadd():
         except:
             print("Could not connect to mysql")
 
-        sql_insert_query = """ INSERT INTO tcbkcdata (bkcdate, bkcversion)
-        VALUES(bkcdate, bkcversion);"""
-
+        sql_insert_query = """ INSERT INTO tcbkcdata ( bkcdate, bkcversion) VALUES(%s, %s);"""
+        sql_insert_tuple = (bkcdate, bkcversion)
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         cursor = db.cursor()
-        result  = cursor.execute(sql_insert_query)
+        result  = cursor.execute(sql_insert_query, sql_insert_tuple)
         db.commit()
 
         val="data added successfully"
