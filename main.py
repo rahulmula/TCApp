@@ -94,7 +94,7 @@ def delete():
 
 
 @app.route("/templateview", methods=['GET', 'POST'])
-def bkcview():
+def templateview():
     try:
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         print("Connected successfully!!!")
@@ -103,9 +103,9 @@ def bkcview():
 
     db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
     cur = db.cursor()
-    cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by Date ASC LIMIT 1;")
+    cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate ASC LIMIT 1;")
     current=cur.fetchall()
-    cur.execute("SELECT TOP (2) bkcversion FROM tcbkcdata ORDER by Date ASC LIMIT 2;")
+    cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate ASC LIMIT 1,1;")
     previous=cur.fetchall()
     return render_template("template.html",crnt=current,prvs=previous)
 
