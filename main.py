@@ -49,6 +49,19 @@ def view():
     #   print(x)
     return render_template("view.html",data=collection)
 
+@app.route("/bkcview", methods=['GET', 'POST'])
+def bkcview():
+    try:
+        db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+        print("Connected successfully!!!")
+    except:
+        print("Could not connect to MongoDB")
+
+    db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+    cur = db.cursor()
+    cur.execute("SELECT bkcdate, bkcversion FROM tcbkcdata;")
+    collection=cur.fetchall()
+    return render_template("bkc.html",data=collection)
 
 @app.route('/delete', methods = ['POST', 'GET'])
 def delete():
@@ -79,9 +92,29 @@ def delete():
         return render_template('delete.html')
 
 @app.route('/bkcadd', methods = ['POST', 'GET'])
-def exceladd():
+def bkcadd():
     if request.method == 'POST':
-        val="record inserted successfully"
+
+        bkcdata = request.form['date']
+		bkcversion = request.form['BKC_Version']
+
+        try:
+
+            db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+
+            print("Connected successfully!!!")
+        except:
+            print("Could not connect to mysql")
+
+        sql_insert_query = """ INSERT INTO tcbkcdata (bkcdate, bkcversion)
+        VALUES(bkcdate, bkcversion);"""
+
+        db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+        cursor = db.cursor()
+        result  = cursor.execute(sql_insert_query)
+        db.commit()
+
+        val="data added successfully"
         return val
     else:
         return render_template('bkc.html')
@@ -214,41 +247,6 @@ def add():
 
     else:
         return render_template('add.html')
-
-        # Open the workbook and define the worksheet
-    #     book = xlrd.open_workbook("pytest.xls")
-    #     sheet = book.sheet_by_name("source")
-    #
-    #
-    #     try:
-    #         # initDb()
-    #         # db = MySQLdb.connect(host='localhost', user='admin', passwd='Password@122', db='tcdata', port='3309')
-    #         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
-    #         # cur = myConnection.cursor()
-    #         # conn = MongoClient('mongodb://admin:admin123@TCTINFRA:27017')
-    #         print("Connected successfully!!!")
-    #     except:
-    #         print("Could not connect to mysql")
-    #
-    #     for r in range(1, sheet.nrows):
-    #
-    #
-    #     sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
-    #     VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
-    #     sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests,'yes', 'fullyautomated', 'e2e', 'yes', 'no', '2', '2018-01-11')
-    #     # db = MySQLdb.connect(host='10.130.163.64', user='admin', passwd='Password@123', db='tcdata', port=3309)
-    #     # db=connection.MySQLConnection(host='localhost', user='admin', passwd='Password@123', db='tcdata', port=3309)
-    #     db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
-    #     #cursor = myConnection.cursor()
-    #     cursor = db.cursor()
-    #     result  = cursor.execute(sql_insert_query, sql_insert_tuple)
-    #     db.commit()
-    #     # myConnection.commit()
-    #     print ("Record inserted successfully into python_users table")
-    #     val="Test added successfully"
-    #     return val
-    # else:
-    #     return render_template('add.html')
 
 @app.route('/', methods = ['POST', 'GET'])
 def main():
