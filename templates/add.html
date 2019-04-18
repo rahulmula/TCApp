@@ -155,7 +155,7 @@
     </dl>
     <p>
 		<input type="submit" value="Submit" formaction="{{ url_for('exceladd') }}">
-    <label>{{val}}</label>
+    <label>{{key}}</label>
 	  </p>
     </fieldset>
 </form>
@@ -165,7 +165,7 @@
     <fieldset>
       <legend>Upload Excel:</legend>
 	<p> Upload Excel : <input id="fileSelect" name="xlfile" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />  </p> </br>
-	<p> <input type="submit" value="Submit" ></p>
+	<p> <input type="submit" value="Submit" ></p><label>{{key}}</label>
 </fieldset>
 </form>
 </div>

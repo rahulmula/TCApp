@@ -87,7 +87,7 @@ def delete():
         cursor.execute(sql_Delete_query, adr)
         db.commit()
         val="record deleted successfully"
-        return val
+        return render_template('delete.html', key=val)
     else:
         return render_template('delete.html')
 
@@ -112,9 +112,14 @@ def bkcadd():
         cursor = db.cursor()
         result  = cursor.execute(sql_insert_query, sql_insert_tuple)
         db.commit()
+        #########
+        #cursor = db.cursor()
+        cursor.execute("SELECT bkcdate, bkcversion FROM tcbkcdata;")
+        collection=cur.fetchall()
+
 
         val="data added successfully"
-        return render_template('bkc.html',key=val)
+        return render_template('bkc.html',key=val, data=collection)
     else:
         return render_template('bkc.html')
 
@@ -164,7 +169,8 @@ def exceladd():
 
 
         # return render_template({'key_val':val})
-        return val
+        #return val
+        return render_template('add.html', key=val)
     else:
         return render_template('add.html')
 
@@ -242,7 +248,7 @@ def add():
 
         # print ("Record inserted successfully into python_users table")
         val="File inserted successfully"
-        return val
+        return render_template('add.html', key=val)
 
     else:
         return render_template('add.html')
