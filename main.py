@@ -91,6 +91,24 @@ def delete():
     else:
         return render_template('delete.html')
 
+
+
+@app.route("/templateview", methods=['GET', 'POST'])
+def bkcview():
+    try:
+        db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+        print("Connected successfully!!!")
+    except:
+        print("Could not connect to MongoDB")
+
+    db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+    cur = db.cursor()
+    cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by Date ASC LIMIT 1;")
+    current=cur.fetchall()
+    cur.execute("SELECT TOP (2) bkcversion FROM tcbkcdata ORDER by Date ASC LIMIT 2;")
+    previous=cur.fetchall()
+    return render_template("template.html",crnt=current,prvs=previous)
+
 @app.route('/bkcadd', methods = ['POST', 'GET'])
 def bkcadd():
     if request.method == 'POST':
