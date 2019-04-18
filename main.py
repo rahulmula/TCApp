@@ -115,7 +115,7 @@ def bkcadd():
         #########
         #cursor = db.cursor()
         cursor.execute("SELECT bkcdate, bkcversion FROM tcbkcdata;")
-        collection=cur.fetchall()
+        collection=cursor.fetchall()
 
 
         val="data added successfully"
