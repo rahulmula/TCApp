@@ -95,8 +95,8 @@ def delete():
 def bkcadd():
     if request.method == 'POST':
 
-        bkcdate=request.form['date']
-        bkcversion=request.form['BKC_Version']
+        bkcdate = request.form['date']
+        bkcversion = request.form['BKC_Version']
 
         try:
 
@@ -114,7 +114,7 @@ def bkcadd():
         db.commit()
 
         val="data added successfully"
-        return val
+        return render_template('bkc.html',data=val)
     else:
         return render_template('bkc.html')
 
