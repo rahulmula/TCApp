@@ -104,9 +104,9 @@ def templateview():
 
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         cur = db.cursor()
-        cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate ASC LIMIT 1;")
+        cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DSC LIMIT 1;")
         current=cur.fetchall()
-        cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate ASC LIMIT 1,1;")
+        cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DSC LIMIT 1,1;")
         previous=cur.fetchall()
         return render_template("template.html",crnt=current,prvs=previous)
     else:
@@ -276,7 +276,14 @@ def add():
 
 @app.route('/', methods = ['POST', 'GET'])
 def main():
-    return render_template("template.html")
+    db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
+    cur = db.cursor()
+    cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DSC LIMIT 1;")
+    current=cur.fetchone()
+    cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DSC LIMIT 1,1;")
+    previous=cur.fetchone()
+    return render_template("template.html",crnt=current,prvs=previous)
+    #return render_template("template.html")
 
 if __name__ == "__main__":
     app.run(host="10.130.163.64",port=8000, debug=True)
