@@ -104,11 +104,11 @@ def templateview():
 
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         cur = db.cursor()
-        cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate ASC LIMIT 1;")
-        current=cur.fetchall()
-        cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate ASC LIMIT 1,1;")
-        previous=cur.fetchall()
-        return render_template("template.html",crnt=current,prvs=previous)
+        cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate ASC LIMIT 1")
+        current=cur.fetchone()
+        cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate ASC LIMIT 1,1")
+        previous=cur.fetchone()
+        return render_template("template.html",crnt='10473',prvs='10471')
     else:
         return render_template('template.html')
 
