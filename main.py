@@ -153,16 +153,10 @@ def exceladd():
         tstscript= request.form['testscript']
         tstdescription= request.form['description']
         tstnooftests= request.form['no.of.tests']
-
-        # Get data from fields
-        # form = request.form.getlist('check')
-        #
-        # if form == 'centos':
-        #     centos = 'yes'
-        # elif form == 'ubuntu16':
-        #     ubuntu1604 = 'yes'
-        # elif form == 'ubuntu18':
-        #     ubuntu1804 = 'yes'
+        automationStatus = request.form["AutomationStatus"]
+        automationType = request.form["AutomationType"]
+        canBeMGPU = request.form["CanBeMGPU"]
+        isMGPU = request.form["IsMGPU"]
 
         now = datetime.now()
         formatted_date = now.strftime('%d-%m-%y:%H:%M:%S')
@@ -176,10 +170,10 @@ def exceladd():
         except:
             print("Could not connect to mysql")
 
-        sql_insert_query = """ INSERT INTO tctestdata (uid, category ,testname, testscript, no_of_tests, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
-        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
-        sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests, 'centos', 'ubuntu16', 'ubuntu18', 'yes', 'no', '2', formatted_date)
-
+        sql_insert_query = """ INSERT INTO tctestdata (testcategory, testname, testsuite, testscript, testdescription, no_of_tests, centos, ubuntu1604, ubuntu1804, sanity, regression, performance, releases, fullcycle, automationstatus, automationtype, canbeMgpu, isMgpu, execution_time_in_min, coverageDate)
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+        #sql_insert_tuple = ('3', tstcategory, tstname, tstscript, tstnooftests, 'centos', 'ubuntu16', 'ubuntu18', 'yes', 'no', '2', formatted_date)
+        sql_insert_tuple = (tstcategory, tstname, tstsuite, tstscript, tstdescription, tstnooftests, 'yes', 'no', 'yes', 'no', 'yes', 'no', 'yes', 'yes', automationStatus, automationType, canBeMGPU, isMGPU, '1', formatted_date)
         db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         cursor = db.cursor()
         result  = cursor.execute(sql_insert_query, sql_insert_tuple)
