@@ -104,11 +104,15 @@ def templateview():
 
         # db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
         cur = db.cursor()
-        cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DSC LIMIT 1;")
+        cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1;")
         current=cur.fetchall()
-        cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DSC LIMIT 1,1;")
+        cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1,1;")
         previous=cur.fetchall()
-        return render_template("template.html",crnt=current,prvs=previous)
+        cur.execute("SELECT bkcdate FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1;")
+        currentDate=cur.fetchone()
+        cur.execute("SELECT bkcdate FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1,1;")
+        previousDate=cur.fetchone()
+        return render_template("template.html", crnt=current, prvs=previous, crntdate=currentDate, prvsdate=previousDate)
     else:
         return render_template('template.html')
 
@@ -276,7 +280,11 @@ def main():
     current=cur.fetchone()
     cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1,1;")
     previous=cur.fetchone()
-    return render_template("template.html", crnt=current, prvs=previous)
+    cur.execute("SELECT bkcdate FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1;")
+    currentDate=cur.fetchone()
+    cur.execute("SELECT bkcdate FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1,1;")
+    previousDate=cur.fetchone()
+    return render_template("template.html", crnt=current, prvs=previous, crntdate=currentDate, prvsdate=previousDate)
     #return render_template("template.html")
 
 if __name__ == "__main__":
