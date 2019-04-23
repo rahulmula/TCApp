@@ -51,7 +51,7 @@
 <body>
   <header>
     <div class="navbar">
-      <a href="{{ url_for('templateview') }}"><font size="5">TCApp</font></a>
+      <a href="{{ url_for('') }}"><font size="5">TCApp</font></a>
       <a href="{{ url_for('add') }}">Add</a>
       <a href="{{ url_for('view') }}">View</a>
       <a href="{{ url_for('delete') }}">Delete</a>
@@ -105,47 +105,47 @@
     <p>
       <form action="" method="post">
        Automation Status?
-        <select>
-          <option>Fully Automated</option>
-          <option>Semi Automated</option>
-          <option>Not Automated</option>
-          <option>NA</option>
-          <option>TBD</option>
+        <select name="AutomationStatus">
+          <option value="FullyAutomated">Fully Automated</option>
+          <option value="SemiAutomated">Semi Automated</option>
+          <option value="NotAutomated">Not Automated</option>
+          <option value="NA">NA</option>
+          <option value="TBD">TBD</option>
        </select>
       </form>
 		</p>
     <p>
       <form action="" method="post">
        Automation Type?
-        <select>
-          <option>SkyNet E2E</option>
-          <option>SkyNet LogCheck</option>
-          <option>Script E2E</option>
-          <option>Script LogCheck</option>
-          <option>TBD</option>
-          <option>NA</option>
+        <select name="AutomationType">
+          <option value="SkyNetE2E">SkyNet E2E</option>
+          <option value="SkyNetLogCheck">SkyNet LogCheck</option>
+          <option value="ScriptE2E">Script E2E</option>
+          <option value="ScriptLogCheck">Script LogCheck</option>
+          <option value="TBD">TBD</option>
+          <option value="NA">NA</option>
        </select>
       </form>
 		</p>
     <p>
       <form action="" method="post">
        Can be mGPU??
-        <select>
-          <option>Yes</option>
-          <option>No</option>
-          <option>NA</option>
-          <option>TBD</option>
+        <select name="CanBeMGPU">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="NA">NA</option>
+          <option value="TBD">TBD</option>
        </select>
       </form>
 		</p>
     <p>
       <form action="" method="post">
        Is mGPU??
-        <select>
-          <option>Yes</option>
-          <option>No</option>
-          <option>NA</option>
-          <option>TBD</option>
+        <select name="IsMGPU">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="NA">NA</option>
+          <option value="TBD">TBD</option>
        </select>
       </form>
 		</p>
