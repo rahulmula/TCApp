@@ -95,7 +95,7 @@ def delete():
 
 @app.route("/templateview", methods=['GET', 'POST'])
 def templateview():
-    if request.method == 'GET':
+    # if request.method == 'GET':
         try:
             db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
             print("Connected successfully!!!")
@@ -113,8 +113,8 @@ def templateview():
         cur.execute("SELECT bkcdate FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1,1;")
         previousDate=cur.fetchone()
         return render_template("template.html", crnt=current, prvs=previous, crntdate=currentDate, prvsdate=previousDate)
-    else:
-        return render_template('template.html')
+    # else:
+        # return render_template('template.html')
 
 @app.route('/bkcadd', methods = ['POST', 'GET'])
 def bkcadd():
