@@ -59,7 +59,7 @@ def bkcview():
 
     db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
     cur = db.cursor()
-    cur.execute("SELECT bkcdate, bkcversion FROM tcbkcdata;")
+    cur.execute("SELECT bkcdate, bkcversion FROM tcbkcdata ORDER BY bkcdate ASC;")
     collection=cur.fetchall()
     return render_template("bkc.html",data=collection)
 
