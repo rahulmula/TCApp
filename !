@@ -112,14 +112,11 @@ def templateview():
         query="SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1,1;"
         cur.execute(query)
         previous=cur.fetchone()
-        prvsvalue=previous[0]
         cur.execute("SELECT bkcdate FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1;")
         currentDate=cur.fetchone()
-        crntDate=currentDate[0]
         cur.execute("SELECT bkcdate FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1,1;")
         previousDate=cur.fetchone()
-        prvsDate=previousDate[0]
-        return render_template("template.html", crnt=crntvalue, prvs=prvsvalue, crntdate=crntDate, prvsdate=prvsDate)
+        return render_template("template.html", crnt=crntvalue, prvs=previous, crntdate=currentDate, prvsdate=previousDate)
     # else:
         # return render_template('template.html')
 
@@ -282,25 +279,18 @@ def add():
 @app.route('/', methods = ['POST', 'GET'])
 def main():
     db = mysql.connector.connect(host='localhost', user='rahul', passwd='Password@123', db='tcdata')
-
     cur = db.cursor()
-    query="SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1;"
+    query = "SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1"
     cur.execute(query)
     current=cur.fetchone()
-    crntvalue=current[0]
-    #crntvalue=val[0]
-    query="SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1,1;"
-    cur.execute(query)
+    cur.execute("SELECT bkcversion FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1,1;")
     previous=cur.fetchone()
-    prvsvalue=previous[0]
     cur.execute("SELECT bkcdate FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1;")
     currentDate=cur.fetchone()
-    crntDate=currentDate[0]
     cur.execute("SELECT bkcdate FROM tcbkcdata ORDER by bkcdate DESC LIMIT 1,1;")
     previousDate=cur.fetchone()
-    prvsDate=previousDate[0]
-    return render_template("template.html", crnt=crntvalue, prvs=prvsvalue, crntdate=crntDate, prvsdate=prvsDate)
+    return render_template("template.html", crnt=current, prvs=previous, crntdate=currentDate, prvsdate=previousDate)
+    #return render_template("template.html")
 
-   
 if __name__ == "__main__":
     app.run(host="10.130.163.64",port=8000, debug=True)
