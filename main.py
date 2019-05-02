@@ -301,6 +301,6 @@ def main():
     prvsDate=previousDate[0]
     return render_template("template.html", crnt=crntvalue, prvs=prvsvalue, crntdate=crntDate, prvsdate=prvsDate)
 
-   
+
 if __name__ == "__main__":
     app.run(host="10.130.163.64",port=8000, debug=True)
