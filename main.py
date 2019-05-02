@@ -302,7 +302,7 @@ def main():
     return render_template("template.html", crnt=crntvalue, prvs=prvsvalue, crntdate=crntDate, prvsdate=prvsDate)
 
 @app.route("/perfview", methods=['GET', 'POST'])
-def view():
+def perfview():
 
     return render_template("perf.html")
 
