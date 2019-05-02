@@ -301,6 +301,11 @@ def main():
     prvsDate=previousDate[0]
     return render_template("template.html", crnt=crntvalue, prvs=prvsvalue, crntdate=crntDate, prvsdate=prvsDate)
 
+@app.route("/perfview", methods=['GET', 'POST'])
+def view():
+
+    return render_template("perf.html")
+
 
 if __name__ == "__main__":
     app.run(host="10.130.163.64",port=8000, debug=True)
