@@ -159,32 +159,6 @@ def bkcadd():
 def exceladd():
     if request.method == 'POST':
         os_appli= []
-        osop1 = request.form.get('checkbx1')
-        if osop1:
-            print(osop1)
-            centos_check = 'yes'
-            os_appli.append(centos_check)
-        else:
-            centos_check = 'no'
-            os_appli.append(centos_check)
-        
-        osop2 = request.form.get('checkbx2')
-        if osop2:
-            ubuntu16_check = 'yes'
-            os_appli.append(ubuntu16_check)
-        else:
-            ubuntu16_check = 'no'
-            os_appli.append(ubuntu16_check)
-
-        osop3 = request.form.get('checkbx3')
-        if osop3:
-            ubuntu18_check = 'yes'
-            os_appli.append(ubuntu18_check)
-        else:
-            ubuntu18_check = 'no'
-            os_appli.append(ubuntu18_check)
- 
-
         tstcategory=request.form['testcategory']
         tstname= request.form['testname']
         tstsuite= request.form['testsuite']
@@ -228,9 +202,9 @@ def exceladd():
         now = datetime.now()
         formatted_date = now.strftime('%d-%m-%y:%H:%M:%S')
         
-        #osop1_checked = request.form.get('checkbx1')
-        #if osop1_checked:
-	#    print(osop1_checked)        
+        osop1_checked= request.form.get("checkbx1")
+        if osop1_checked:
+	    print(osop1_checked)        
 
         try:
             # initDb()
